@@ -22,15 +22,20 @@ This MATLAB / Python code package is related to the following article:
 
 - Download source data 'O1_60' under ‘O1’ Ray-Tracing Scenario from https://www.deepmimo.net/ray_tracing.html then put it into the folder: Data_Generation/RayTracing Scenarios/O1
 
-'''
+- Run following scripts
+
+```
 matlab main_data_part1.m
-'''
-'''
+```
+
+```
 python3 main_data_part2.py
-'''
-'''
+```
+
+```
 sh main_train_part3.sh
-'''
-'''
+```
+
+```
 matlab main_figure_part4.m
-'''
+```
