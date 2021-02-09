@@ -1,4 +1,4 @@
-## DeepMIMO for Power Allocation
+## DeepMIMO for Coordinated Beamforming
 
 This is a MATLAB / Python code package modified from [1-2] to generate data and perform continual learning training [3-4] for coordinated beamforming. The code is based on the publicly available DeepMIMO dataset published for deep learning applications in mmWave and massive MIMO systems. 
 
