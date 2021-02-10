@@ -108,6 +108,7 @@ def life_experience(model_o, continuum, x_te, args, d_idx, accumulate_train=Fals
     time_spent = 0
     model = model_o
     loss2save = []
+    time2save = []
 
     for (i, (v_x, t, v_y)) in enumerate(continuum):
         if accumulate_train:
@@ -139,8 +140,9 @@ def life_experience(model_o, continuum, x_te, args, d_idx, accumulate_train=Fals
 
         mseloss = eval_tasks(model, x_te, args, i, d_idx)
         loss2save.append(mseloss)
+        time2save.append(time_spent)
 
-    return loss2save
+    return loss2save, time2save
 
 
 def load_datasets(args):
@@ -267,15 +269,16 @@ if __name__ == "__main__":
 
     if args.mode == 'online':
         # run model on continuum
-        loss2save = life_experience(model, continuum, x_te, args, d_idx, accumulate_train=False)
+        loss2save, time2save = life_experience(model, continuum, x_te, args, d_idx, accumulate_train=False)
     elif args.mode == 'joint':
         # run model on entire dataset
-        loss2save = life_experience(model, continuum, x_te, args, d_idx, accumulate_train=True)
+        loss2save, time2save = life_experience(model, continuum, x_te, args, d_idx, accumulate_train=True)
     else:
         raise AssertionError(
             "args.mode should be one of 'online', 'joint'.")
 
-    # save all results in binary file
-    torch.save((loss2save, args), 'result/' + args.model + args.mode + str(args.part) + '.pt')
-                
+    # save mseloss and cpu time
+    mdic = {"loss": loss2save, "time": time2save}
+    savemat("result/save_%s_part%d.mat" % (args.model+args.mode, args.part), mdic)
+            
     
